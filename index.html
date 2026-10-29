@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stamim's HQ</title>
+  <meta name="description" content="Stamim's HQ - a small collection of projects, bookmarked sites, and ways to get in touch. Based in Malaysia." />
+
+  <script>
+    try {
+      var saved = localStorage.getItem('hq:theme');
+      var dark = saved ? saved === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+      if (dark) document.documentElement.classList.add('dark');
+    } catch (e) {}
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --blue: #1B3BDB;
+      --blue-deep: #1229A8;
+      --blue-night: #16257F;
+
+      --yellow: #FFD93D;
+      --yellow-deep: #E9B800;
+
+      --paper: #FFFFFF;
+      --surface: #FFFFFF;
+      --ink: #14161E;
+      --ink-soft: #3A3D4A;
+      --muted: #74788A;
+      --rule: rgba(20, 22, 30, 0.1);
+      --wash: rgba(20, 22, 30, 0.035);
+    }
+
+    .dark {
+      --blue: #2A46E8;
+      --blue-deep: #1B32C0;
+      --blue-night: #131F6B;
+
+      --paper: #0A0C14;
+      --surface: #12141E;
+      --ink: #F4F2EC;
+      --ink-soft: #C9C7C0;
+      --muted: #8B8F9E;
+      --rule: rgba(244, 242, 236, 0.1);
+      --wash: rgba(244, 242, 236, 0.045);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background-color .4s ease, color .4s ease;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+    ::selection { background: var(--yellow); color: #14161E; }
+
+    .wrap {
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 0 22px;
+    }
+
+    /* ── motion ──────────────────────────────────────── */
+    @keyframes drift      { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes floaty     { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @keyframes floaty-soft{ 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+    @keyframes twinkle    { 0%, 100% { transform: scale(1) rotate(0); opacity: 1; } 25% { transform: scale(1.16) rotate(16deg); opacity: .75; } 50% { transform: scale(.94) rotate(-10deg); opacity: 1; } 75% { transform: scale(1.1) rotate(8deg); opacity: .85; } }
+    @keyframes spin-slow  { to { transform: rotate(360deg); } }
+    @keyframes sway       { 0%, 100% { transform: rotate(-7deg); } 50% { transform: rotate(7deg); } }
+    @keyframes pulse-soft { 0%, 100% { opacity: .45; transform: scale(1); } 50% { opacity: .85; transform: scale(1.08); } }
+    @keyframes bob        { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+    @keyframes wiggle     { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-6deg); } 75% { transform: rotate(6deg); } }
+    @keyframes card-in    { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+    .anim-float      { animation: floaty 7s ease-in-out infinite; }
+    .anim-float-soft { animation: floaty-soft 5s ease-in-out infinite; }
+    .anim-twinkle    { animation: twinkle 4s ease-in-out infinite; }
+    .anim-spin-slow  { animation: spin-slow 30s linear infinite; }
+    .anim-sway       { animation: sway 4s ease-in-out infinite; transform-origin: 50% 20%; }
+    .anim-pulse-soft { animation: pulse-soft 5s ease-in-out infinite; }
+    .anim-bob        { animation: bob 3.5s ease-in-out infinite; }
+    .anim-wiggle     { animation: wiggle 4s ease-in-out infinite; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* ── header ──────────────────────────────────────── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--paper);
+      border-bottom: 1px solid var(--rule);
+      transition: background .4s ease, border-color .4s ease;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      height: 64px;
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 0 22px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 11px;
+      background: var(--blue);
+      color: var(--yellow);
+      flex-shrink: 0;
+      transition: transform .35s cubic-bezier(.2, .8, .3, 1.5);
+    }
+
+    .brand-mark svg { animation: twinkle 5s ease-in-out infinite; }
+    .brand:hover .brand-mark { transform: scale(1.07) rotate(-4deg); }
+
+    .brand-text {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      font-size: 15px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-text .dot { color: var(--blue); }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .status {
+      display: none;
+      align-items: center;
+      gap: 7px;
+      font-size: 11.5px;
+      color: var(--muted);
+    }
+
+    @media (min-width: 640px) { .status { display: inline-flex; } }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #22C55E;
+      animation: pulse-soft 2.5s ease-in-out infinite;
+    }
+
+    .icon-btn {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--wash);
+      border: 1px solid var(--rule);
+      color: var(--ink-soft);
+      transition: transform .2s ease, border-color .2s ease, background .2s ease, color .2s ease;
+      flex-shrink: 0;
+    }
+
+    .icon-btn:hover {
+      transform: scale(1.06);
+      border-color: var(--blue);
+      background: var(--blue);
+      color: var(--yellow);
+    }
+
+    .icon-btn:active { transform: scale(.94); }
+
+    .icon-sun  { display: none; animation: spin-slow 14s linear infinite; }
+    .icon-moon { animation: sway 4s ease-in-out infinite; transform-origin: 70% 70%; }
+    .dark .icon-moon { display: none; }
+    .dark .icon-sun  { display: block; }
+
+    /* ── bands ───────────────────────────────────────── */
+    .band-blue {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .band-yellow {
+      background: var(--yellow);
+      color: #14161E;
+    }
+
+    .dark .band-blue { background: var(--blue-night); }
+    .dark .band-yellow { background: #F2CE38; color: #14161E; }
+
+    .hero-band { padding: 64px 0 76px; }
+
+    .band-pad { padding: 68px 0; }
+
+    /* ── hero ────────────────────────────────────────── */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      align-items: end;
+    }
+
+    @media (min-width: 900px) {
+      .hero-grid { grid-template-columns: 1.15fr .85fr; gap: 48px; }
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .6);
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 22px;
+      height: 2px;
+      background: var(--yellow);
+    }
+
+    h1 {
+      margin-top: 16px;
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(38px, 7.2vw, 68px);
+      font-weight: 400;
+      letter-spacing: -0.025em;
+      line-height: 1;
+      max-width: 15ch;
+      color: #fff;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--yellow);
+    }
+
+    .marked {
+      position: relative;
+      display: inline-block;
+      z-index: 0;
+      color: #14161E;
+    }
+
+    .marked::after {
+      content: '';
+      position: absolute;
+      left: -6px;
+      right: -6px;
+      top: 2px;
+      bottom: 6px;
+      background: var(--yellow);
+      z-index: -1;
+      transform: rotate(-1.4deg);
+      border-radius: 3px;
+    }
+
+    .lede {
+      margin-top: 22px;
+      max-width: 44ch;
+      color: rgba(255, 255, 255, .72);
+      font-size: 15.5px;
+      line-height: 1.75;
+    }
+
+    .lede em {
+      font-style: italic;
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 17.5px;
+      color: #fff;
+    }
+
+    .hero-actions {
+      margin-top: 26px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 20px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 500;
+      transition: transform .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease, color .25s ease;
+    }
+
+    .btn-yellow {
+      background: var(--yellow);
+      color: #14161E;
+      box-shadow: 0 14px 28px -16px rgba(0, 0, 0, .5);
+    }
+
+    .btn-yellow:hover {
+      transform: translateY(-2px);
+      background: var(--yellow-deep);
+      box-shadow: 0 20px 34px -18px rgba(0, 0, 0, .6);
+    }
+
+    .btn-yellow:active { transform: translateY(0) scale(.98); }
+
+    .btn-blue {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .btn-blue:hover { transform: translateY(-2px); background: var(--blue-deep); }
+    .btn-blue:active { transform: translateY(0) scale(.98); }
+
+    .btn-outline {
+      border: 1px solid rgba(255, 255, 255, .34);
+      color: #fff;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--yellow);
+      background: rgba(255, 255, 255, .08);
+      color: var(--yellow);
+    }
+
+    .btn svg { transition: transform .25s ease; }
+    .btn:hover svg { transform: translate(2px, -2px); }
+
+    /* search */
+    .search-wrap {
+      position: relative;
+      max-width: 460px;
+      margin-top: 30px;
+    }
+
+    .search-wrap > svg {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+      transition: color .2s ease;
+    }
+
+    .search-wrap:focus-within > svg {
+      color: var(--blue);
+      animation: sway 1.6s ease-in-out infinite;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 50px 12px 42px;
+      border-radius: 13px;
+      background: #fff;
+      border: 2px solid transparent;
+      color: #14161E;
+      font-size: 13.5px;
+      outline: none;
+      transition: border-color .25s ease, box-shadow .25s ease;
+    }
+
+    .search-input::placeholder { color: #8A8E9C; }
+
+    .search-input:focus {
+      border-color: var(--yellow);
+      box-shadow: 0 0 0 4px rgba(255, 217, 61, .28);
+    }
+
+    .search-kbd {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 3px 7px;
+      border: 1px solid rgba(20, 22, 30, .14);
+      border-radius: 5px;
+      background: rgba(20, 22, 30, .04);
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+
+    .search-wrap:focus-within .search-kbd {
+      opacity: 0;
+      transform: translateY(-50%) scale(.7);
+    }
+
+    /* yellow sticky note on blue */
+    .hero-note {
+      position: relative;
+      background: var(--yellow);
+      border-radius: 20px;
+      padding: 26px;
+      color: #14161E;
+      box-shadow: 0 30px 55px -30px rgba(0, 0, 0, .55);
+      transform: rotate(-1.4deg);
+      overflow: hidden;
+      transition: transform .35s cubic-bezier(.2, .8, .3, 1.4);
+    }
+
+    .hero-note:hover { transform: rotate(0deg); }
+
+    .hero-note::after {
+      content: '';
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(20, 22, 30, .18);
+    }
+
+    .hero-note-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(20, 22, 30, .55);
+    }
+
+    .hero-note-quote {
+      margin-top: 14px;
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 25px;
+      line-height: 1.14;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-note-quote em {
+      font-style: italic;
+      color: var(--blue-deep);
+    }
+
+    .hero-note-meta {
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(20, 22, 30, .18);
+    }
+
+    .hero-note-meta div { display: flex; flex-direction: column; gap: 1px; }
+
+    .hero-note-meta dt {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 23px;
+      line-height: 1;
+    }
+
+    .hero-note-meta dd {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(20, 22, 30, .55);
+    }
+
+    /* ── marquee (top of yellow band) ────────────────── */
+    .marquee {
+      background: var(--yellow);
+      color: #14161E;
+      padding: 12px 0;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(20, 22, 30, .12);
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: drift 42s linear infinite;
+      will-change: transform;
+    }
+
+    .marquee:hover .marquee-track { animation-play-state: paused; }
+
+    .marquee-chunk {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      padding-right: 26px;
+      flex-shrink: 0;
+    }
+
+    .marquee-chunk span {
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .marquee-chunk em {
+      font-style: italic;
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 15px;
+      color: var(--blue-deep);
+      white-space: nowrap;
+    }
+
+    .marquee-chunk i { font-style: normal; font-size: 12px; opacity: .5; }
+
+    /* ── section heads ───────────────────────────────── */
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 26px;
+      letter-spacing: -0.01em;
+    }
+
+    .section-title svg { flex-shrink: 0; }
+
+    .section-sub {
+      margin-top: 4px;
+      font-size: 12.5px;
+      padding-left: 28px;
+    }
+
+    .section-sub em {
+      font-style: italic;
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 14px;
+    }
+
+    .section-count {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      letter-spacing: .08em;
+      white-space: nowrap;
+    }
+
+    /* color-aware section head */
+    .band-blue .section-title { color: #fff; }
+    .band-blue .section-title svg { color: var(--yellow); }
+    .band-blue .section-sub { color: rgba(255, 255, 255, .6); }
+    .band-blue .section-sub em { color: rgba(255, 255, 255, .8); }
+    .band-blue .section-count { color: rgba(255, 255, 255, .5); }
+
+    .band-yellow .section-title { color: #14161E; }
+    .band-yellow .section-title svg { color: var(--blue-deep); }
+    .band-yellow .section-sub { color: rgba(20, 22, 30, .6); }
+    .band-yellow .section-sub em { color: rgba(20, 22, 30, .78); }
+    .band-yellow .section-count { color: rgba(20, 22, 30, .5); }
+
+    .plain .section-title { color: var(--ink); }
+    .plain .section-title svg { color: var(--blue); }
+    .plain .section-sub { color: var(--muted); }
+    .plain .section-sub em { color: var(--ink-soft); }
+    .plain .section-count { color: var(--muted); }
+
+    /* ── grids ───────────────────────────────────────── */
+    .grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 560px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 800px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .grid-apps { grid-template-columns: 1fr; }
+    @media (min-width: 560px) { .grid-apps { grid-template-columns: repeat(2, 1fr); } }
+
+    .grid-sites { grid-template-columns: 1fr; }
+    @media (min-width: 560px) { .grid-sites { grid-template-columns: repeat(2, 1fr); } }
+
+    .grid-contacts { grid-template-columns: 1fr; }
+    @media (min-width: 560px) { .grid-contacts { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 800px) { .grid-contacts { grid-template-columns: repeat(3, 1fr); } }
+
+    .grid-features { grid-template-columns: 1fr; }
+    @media (min-width: 560px) { .grid-features { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 900px) { .grid-features { grid-template-columns: repeat(4, 1fr); } }
+
+    /* ── feature cards (blue cards on yellow) ────────── */
+    .feature {
+      padding: 20px;
+      border-radius: 18px;
+      background: var(--blue);
+      color: #fff;
+      transition: transform .3s cubic-bezier(.2, .8, .3, 1.15), box-shadow .3s ease, background .3s ease;
+    }
+
+    .feature:hover {
+      transform: translateY(-4px);
+      background: var(--blue-deep);
+      box-shadow: 0 24px 38px -22px rgba(18, 41, 168, .7);
+    }
+
+    .dark .feature { background: var(--blue-night); }
+    .dark .feature:hover { background: #0F1B60; }
+
+    .feature-icon {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: var(--yellow);
+      color: #14161E;
+      margin-bottom: 14px;
+      transition: transform .35s cubic-bezier(.2, .8, .3, 1.5);
+    }
+
+    .feature:hover .feature-icon { transform: scale(1.07) rotate(-4deg); }
+
+    .feature h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      letter-spacing: -0.005em;
+      color: #fff;
+    }
+
+    .feature p {
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: rgba(255, 255, 255, .68);
+    }
+
+    /* ── link cards ──────────────────────────────────── */
+    .card {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px;
+      border-radius: 16px;
+      overflow: hidden;
+      animation: card-in .5s cubic-bezier(.2, .8, .3, 1) backwards;
+      transition: transform .3s cubic-bezier(.2, .8, .3, 1.15), border-color .3s ease, box-shadow .3s ease, background .3s ease;
+      will-change: transform;
+    }
+
+    .card:nth-child(2) { animation-delay: 60ms; }
+    .card:nth-child(3) { animation-delay: 120ms; }
+    .card:nth-child(4) { animation-delay: 180ms; }
+    .card:nth-child(5) { animation-delay: 240ms; }
+    .card:nth-child(6) { animation-delay: 300ms; }
+
+    .card-body { min-width: 0; flex: 1; }
+
+    .card-title {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: color .3s ease;
+    }
+
+    .card-sub {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 2px;
+    }
+
+    .card-icon {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      flex-shrink: 0;
+      transition: transform .35s cubic-bezier(.2, .8, .3, 1.5);
+    }
+
+    .card-arrow {
+      flex-shrink: 0;
+      transition: transform .3s ease;
+    }
+
+    /* cards on white */
+    .plain .card {
+      background: var(--surface);
+      border: 1px solid var(--rule);
+    }
+
+    .plain .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--blue);
+      box-shadow: 0 22px 38px -26px rgba(27, 59, 219, .5);
+    }
+
+    .plain .card:active { transform: translateY(-1px) scale(.99); }
+    .plain .card-title { color: var(--ink); }
+    .plain .card:hover .card-title { color: var(--blue); }
+    .plain .card-sub { color: var(--muted); }
+    .plain .card-icon { background: var(--blue); color: var(--yellow); }
+    .plain .card:hover .card-icon { transform: scale(1.06) rotate(-3deg); }
+    .plain .card-arrow { color: var(--muted); }
+    .plain .card:hover .card-arrow { color: var(--blue); transform: translate(2px, -2px); }
+
+    /* cards on blue */
+    .band-blue .card {
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .16);
+    }
+
+    .band-blue .card:hover {
+      transform: translateY(-4px);
+      background: rgba(255, 255, 255, .14);
+      border-color: var(--yellow);
+      box-shadow: 0 22px 38px -24px rgba(0, 0, 0, .5);
+    }
+
+    .band-blue .card:active { transform: translateY(-1px) scale(.99); }
+    .band-blue .card-title { color: #fff; }
+    .band-blue .card:hover .card-title { color: var(--yellow); }
+    .band-blue .card-sub { color: rgba(255, 255, 255, .5); }
+    .band-blue .card-icon { background: var(--yellow); color: #14161E; }
+    .band-blue .card:hover .card-icon { transform: scale(1.06) rotate(-3deg); }
+    .band-blue .card-arrow { color: rgba(255, 255, 255, .5); }
+    .band-blue .card:hover .card-arrow { color: var(--yellow); transform: translate(2px, -2px); }
+
+    /* cards on yellow */
+    .band-yellow .card {
+      background: #fff;
+      border: 1px solid rgba(20, 22, 30, .12);
+    }
+
+    .band-yellow .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--blue);
+      box-shadow: 0 22px 38px -24px rgba(18, 41, 168, .45);
+    }
+
+    .band-yellow .card:active { transform: translateY(-1px) scale(.99); }
+    .band-yellow .card-title { color: #14161E; }
+    .band-yellow .card:hover .card-title { color: var(--blue); }
+    .band-yellow .card-sub { color: #74788A; }
+    .band-yellow .card-icon { background: var(--blue); color: var(--yellow); }
+    .band-yellow .card:hover .card-icon { transform: scale(1.06) rotate(-3deg); }
+    .band-yellow .card-arrow { color: #8A8E9C; }
+    .band-yellow .card:hover .card-arrow { color: var(--blue); transform: translate(2px, -2px); }
+
+    /* empty states */
+    .empty {
+      padding: 26px;
+      text-align: center;
+      font-size: 13px;
+      border: 1px dashed;
+      border-radius: 16px;
+      display: none;
+      animation: card-in .3s ease;
+    }
+
+    .empty.show { display: block; }
+    .plain .empty { color: var(--muted); border-color: var(--rule); }
+    .band-blue .empty { color: rgba(255, 255, 255, .6); border-color: rgba(255, 255, 255, .22); }
+    .band-yellow .empty { color: rgba(20, 22, 30, .6); border-color: rgba(20, 22, 30, .22); }
+
+    /* little handwritten notes */
+    .note {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      font-size: 16px;
+    }
+
+    .note svg { flex-shrink: 0; }
+
+    .band-yellow .note { color: rgba(20, 22, 30, .78); }
+    .band-yellow .note svg { color: var(--blue-deep); }
+    .band-blue .note { color: rgba(255, 255, 255, .72); }
+    .band-blue .note svg { color: var(--yellow); }
+
+    /* ── footer ──────────────────────────────────────── */
+    footer {
+      background: var(--paper);
+      padding: 30px 0 44px;
+      border-top: 1px solid var(--rule);
+      position: relative;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 22px;
+      width: 46px;
+      height: 2px;
+      background: var(--yellow);
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    @media (min-width: 700px) {
+      .footer-inner { flex-direction: row; align-items: center; }
+    }
+
+    .footer-left { display: flex; align-items: center; gap: 10px; }
+
+    .footer-mark {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 9px;
+      background: var(--blue);
+      color: var(--yellow);
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .footer-text { font-size: 12.5px; color: var(--muted); }
+    .footer-text strong { color: var(--ink); font-weight: 600; }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: var(--muted);
+      transition: color .25s ease;
+    }
+
+    .footer-links a:hover { color: var(--blue); }
+
+    .footer-links .divider {
+      width: 1px;
+      height: 12px;
+      background: var(--rule);
+    }
+
+    section[id] { scroll-margin-top: 80px; }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="#top" class="brand">
+        <span class="brand-mark">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </span>
+        <span class="brand-text">stamim<span class="dot">.</span>hq</span>
+      </a>
+
+      <div class="header-right">
+        <span class="status">
+          <span class="status-dot"></span>
+          Open to chats
+        </span>
+        <button id="themeToggle" class="icon-btn" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ── blue hero ─────────────────────────────────── -->
+    <section class="band-blue hero-band">
+      <div class="wrap">
+        <div class="hero-grid">
+          <div>
+            <p class="eyebrow">Kuala Lumpur · Malaysia</p>
+
+            <h1>
+              I make <em>projects</em>.
+              The good ones end up here.
+            </h1>
+
+            <p class="lede">
+              Three years of building things on the internet. No face, no pitch, no personal brand.
+              Just code, the odd <em>late night</em>, and whatever I happen to be curious about.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#apps" class="btn btn-yellow">
+                See what I've made
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+              </a>
+              <a href="#contact" class="btn btn-outline">
+                Say hi
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </a>
+            </div>
+
+            <div class="search-wrap">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input id="search" class="search-input" type="text" placeholder="Search apps, sites, contacts…" autocomplete="off" />
+              <kbd class="search-kbd">/</kbd>
+            </div>
+          </div>
+
+          <aside class="hero-note">
+            <span class="hero-note-label">studio note</span>
+            <p class="hero-note-quote">
+              "Small things, made <em>properly</em>. That's the whole plan."
+            </p>
+            <div class="hero-note-meta">
+              <div>
+                <dt>3</dt>
+                <dd>years in</dd>
+              </div>
+              <div>
+                <dt>1</dt>
+                <dd>person</dd>
+              </div>
+              <div>
+                <dt>∞</dt>
+                <dd>tabs open</dd>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── yellow band: marquee + what I do ──────────── -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <div class="marquee-chunk">
+          <span>still learning</span>
+          <i>·</i>
+          <span>tab hoarder</span>
+          <i>·</i>
+          <em>ships when it's ready</em>
+          <i>·</i>
+          <span>no pitch deck</span>
+          <i>·</i>
+          <span>occasionally vibes</span>
+          <i>·</i>
+          <em>based in KL</em>
+          <i>·</i>
+          <span>usually online</span>
+          <i>·</i>
+        </div>
+        <div class="marquee-chunk">
+          <span>still learning</span>
+          <i>·</i>
+          <span>tab hoarder</span>
+          <i>·</i>
+          <em>ships when it's ready</em>
+          <i>·</i>
+          <span>no pitch deck</span>
+          <i>·</i>
+          <span>occasionally vibes</span>
+          <i>·</i>
+          <em>based in KL</em>
+          <i>·</i>
+          <span>usually online</span>
+          <i>·</i>
+        </div>
+      </div>
+    </div>
+
+    <section id="about" class="band-yellow band-pad">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-title">
+              <svg class="anim-twinkle" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+              What I do
+            </div>
+            <p class="section-sub">the honest version</p>
+          </div>
+        </div>
+
+        <div class="grid grid-features">
+          <div class="feature">
+            <div class="feature-icon">
+              <svg class="anim-wiggle" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h3>Frontend</h3>
+            <p>Interfaces that feel calm and load fast. Small details, kept tidy.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">
+              <svg class="anim-bob" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2"/><rect width="20" height="8" x="2" y="14" rx="2"/><circle cx="6" cy="6" r="1" fill="currentColor"/><circle cx="6" cy="18" r="1" fill="currentColor"/></svg>
+            </div>
+            <h3>Node.js</h3>
+            <p>Small services, bots, APIs. Nothing clever for the sake of it.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">
+              <svg class="anim-pulse-soft" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><circle cx="9" cy="14" r="1" fill="currentColor"/><circle cx="15" cy="14" r="1" fill="currentColor"/><path d="M2 14h2M20 14h2"/></svg>
+            </div>
+            <h3>Bots</h3>
+            <p>Discord and Telegram stuff. Mostly small, occasionally usefull.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">
+              <svg class="anim-twinkle" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+            </div>
+            <h3>Experiments</h3>
+            <p>Things I try once I learn something new. Some stick, most don't.</p>
+          </div>
+        </div>
+
+        <p class="note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18c-4.51 2-5-2-7-2"/><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65S8.93 17.38 9 18v4"/></svg>
+          honest answer: I mostly just make projects.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── white band: apps ──────────────────────────── -->
+    <section id="apps" class="plain band-pad">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-title">
+              <svg class="anim-wiggle" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+              My web apps
+            </div>
+            <p class="section-sub"><em>built, shipped, still up</em></p>
+          </div>
+          <span id="appsCount" class="section-count"></span>
+        </div>
+        <div id="appsGrid" class="grid grid-apps"></div>
+        <div id="appsEmpty" class="empty">No apps match that search.</div>
+      </div>
+    </section>
+
+    <!-- ── yellow band: sites ────────────────────────── -->
+    <section id="sites" class="band-yellow band-pad">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-title">
+              <svg class="anim-spin-slow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+              Favorite websites
+            </div>
+            <p class="section-sub"><em>places I keep coming back to</em></p>
+          </div>
+          <span id="sitesCount" class="section-count"></span>
+        </div>
+        <div id="sitesGrid" class="grid grid-sites"></div>
+        <div id="sitesEmpty" class="empty">No sites match that search.</div>
+      </div>
+    </section>
+
+    <!-- ── blue band: contact ────────────────────────── -->
+    <section id="contact" class="band-blue band-pad">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="section-title">
+              <svg class="anim-float-soft" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              Say hi
+            </div>
+            <p class="section-sub"><em>pick a channel, whatever's easiest</em></p>
+          </div>
+          <span id="contactsCount" class="section-count"></span>
+        </div>
+        <div id="contactsGrid" class="grid grid-contacts"></div>
+        <div id="contactsEmpty" class="empty">No contacts match that search.</div>
+
+        <p class="note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          no forms, no pitch calls. I read every message myself and recieve a reply within a couple days.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-mark">S</span>
+          <p class="footer-text"><strong>Stamim's HQ</strong> · made quietly, somewhere in Malaysia</p>
+        </div>
+        <div class="footer-links">
+          <a href="#apps">Apps</a>
+          <a href="#sites">Sites</a>
+          <a href="#contact">Contact</a>
+          <span class="divider"></span>
+          <a href="#top">Back to top ↑</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      // the little collections. edit these and the page updates itself.
+      var APPS = [
+        { name: 'Stuna',  url: 'https://stamim.likesyou.org/stuna', icon: 'gamepad', anim: 'wiggle' },
+        { name: 'Bubblo', url: 'https://bubblo.wisp.uno',           icon: 'message', anim: 'bob' }
+      ];
+
+      var SITES = [
+        { name: 'Talkomatic', url: 'https://classic.talkomatic.co', icon: 'globe', anim: 'spin-slow' }
+      ];
+
+      var CONTACTS = [
+        { name: 'YouTube',  url: 'https://youtube.com/@stamimmeh',      icon: 'youtube', anim: 'pulse-soft' },
+        { name: 'Email',    url: 'mailto:starstamim@gmail.com',         icon: 'mail',    anim: 'float-soft' },
+        { name: 'GitHub',   url: 'https://github.com/stamim-dev',       icon: 'github',  anim: 'wiggle' },
+        { name: 'Discord',  url: 'https://discord.com/users/stamimmeh', icon: 'discord', anim: 'sway' },
+        { name: 'Telegram', url: 'https://t.me/JustNamedStar',          icon: 'send',    anim: 'bob' }
+      ];
+
+      var ANIMS = {
+        'spin-slow':  'anim-spin-slow',
+        'float':      'anim-float',
+        'float-soft': 'anim-float-soft',
+        'twinkle':    'anim-twinkle',
+        'sway':       'anim-sway',
+        'pulse-soft': 'anim-pulse-soft',
+        'bob':        'anim-bob',
+        'wiggle':     'anim-wiggle'
+      };
+
+      var ICONS = {
+        gamepad: { anim: 'wiggle',    body: '<line x1="6" x2="10" y1="12" y2="12"/><line x1="8" x2="8" y1="10" y2="14"/><circle cx="15" cy="12" r="1" fill="currentColor"/><circle cx="18" cy="10" r="1" fill="currentColor"/><rect width="20" height="12" x="2" y="6" rx="6"/>' },
+        message: { anim: 'bob',       body: '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>' },
+        globe:   { anim: 'spin-slow', body: '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>' },
+        arrow:   { anim: '',          body: '<path d="M7 17 17 7M7 7h10v10"/>' },
+        mail:    { anim: 'float-soft',body: '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>' },
+        github:  { anim: 'wiggle',    body: '<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65S8.93 17.38 9 18v4"/><path d="M9 18c-4.51 2-5-2-7-2"/>' },
+        youtube: { anim: 'pulse-soft',body: '<path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z" fill="currentColor"/>' },
+        discord: { anim: 'sway',      body: '<path d="M8 12a1 1 0 1 0 2 0 1 1 0 0 0-2 0"/><path d="M14 12a1 1 0 1 0 2 0 1 1 0 0 0-2 0"/><path d="M15.5 17c0 1 1.5 3 2 3 1.5 0 2.833-1.667 3.5-3 .667-1.667.5-5.833-1.5-11.5-1.457-1.015-3-1.34-4.5-1.5l-1 2.5h-4l-1-2.5c-1.5.16-3.043.485-4.5 1.5-2 5.667-2.167 9.833-1.5 11.5.667 1.333 2 3 3.5 3 .5 0 2-2 2-3"/><path d="M8.5 17c-2 0-2.5-1-3-2"/>' },
+        send:    { anim: 'bob',       body: '<path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>' }
+      };
+
+      function svgFor(key, size, overrideAnim) {
+        var entry = ICONS[key] || ICONS.arrow;
+        var animName = overrideAnim || entry.anim;
+        var animClass = animName && ANIMS[animName] ? ' class="' + ANIMS[animName] + '"' : '';
+        return '<svg' + animClass + ' width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' + entry.body + '</svg>';
+      }
+
+      function displayUrl(url) {
+        try {
+          if (url.indexOf('mailto:') === 0) return url.slice(7);
+          if (url.indexOf('tel:') === 0) return url.slice(4);
+          return new URL(url).hostname.replace(/^www\./, '');
+        } catch (e) { return url; }
+      }
+
+      // keep any stray angle brackets out of the DOM
+      function esc(s) {
+        return String(s).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+
+      function buildCard(item, index) {
+        var a = document.createElement('a');
+        a.href = item.url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.className = 'card';
+        a.style.animationDelay = Math.min(index * 55, 360) + 'ms';
+        a.innerHTML =
+          '<span class="card-icon">' + svgFor(item.icon, 18, item.anim) + '</span>' +
+          '<span class="card-body">' +
+            '<span class="card-title">' + esc(item.name) + '</span>' +
+            '<span class="card-sub">' + esc(displayUrl(item.url)) + '</span>' +
+          '</span>' +
+          '<span class="card-arrow">' + svgFor('arrow', 15) + '</span>';
+        return a;
+      }
+
+      var groups = {
+        apps:     { list: APPS,     el: document.getElementById('appsGrid'),     empty: document.getElementById('appsEmpty'),     count: document.getElementById('appsCount'),     label: 'app' },
+        sites:    { list: SITES,    el: document.getElementById('sitesGrid'),    empty: document.getElementById('sitesEmpty'),    count: document.getElementById('sitesCount'),    label: 'site' },
+        contacts: { list: CONTACTS, el: document.getElementById('contactsGrid'), empty: document.getElementById('contactsEmpty'), count: document.getElementById('contactsCount'), label: 'contact' }
+      };
+
+      function render(group, query) {
+        var q = (query || '').toLowerCase().trim();
+        var list = group.list.filter(function (item) {
+          if (!q) return true;
+          return (item.name + ' ' + item.url + ' ' + displayUrl(item.url)).toLowerCase().indexOf(q) !== -1;
+        });
+        group.el.textContent = '';
+        var frag = document.createDocumentFragment();
+        for (var i = 0; i < list.length; i++) frag.appendChild(buildCard(list[i], i));
+        group.el.appendChild(frag);
+        group.empty.classList.toggle('show', list.length === 0);
+        group.count.textContent = list.length + ' ' + group.label + (list.length === 1 ? '' : 's');
+      }
+
+      function renderAll(query) {
+        render(groups.apps, query);
+        render(groups.sites, query);
+        render(groups.contacts, query);
+      }
+
+      // debounce typing so the DOM isn't hammered
+      var searchInput = document.getElementById('search');
+      var raf = 0;
+      searchInput.addEventListener('input', function () {
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(function () { renderAll(searchInput.value); raf = 0; });
+      });
+      renderAll('');
+
+      // "/" jumps to search because I'm lazy
+      document.addEventListener('keydown', function (e) {
+        var tag = (document.activeElement && document.activeElement.tagName) || '';
+        if (e.key === '/' && tag !== 'INPUT' && tag !== 'TEXTAREA') {
+          e.preventDefault();
+          searchInput.focus();
+          searchInput.select();
+        }
+        if (e.key === 'Escape' && document.activeElement === searchInput) {
+          searchInput.value = '';
+          renderAll('');
+          searchInput.blur();
+        }
+      });
+
+      var themeToggle = document.getElementById('themeToggle');
+      themeToggle.addEventListener('click', function () {
+        var dark = !document.documentElement.classList.contains('dark');
+        document.documentElement.classList.toggle('dark', dark);
+        try { localStorage.setItem('hq:theme', dark ? 'dark' : 'light'); } catch (e) {}
+      });
+    })();
+  </script>
+
+</body>
+</html>
