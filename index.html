@@ -3,81 +3,93 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Stamim</title>
-    <meta name="description" content="Stamim builds small stuff for the web, side projects, and simple tools." />
-    <script>
-      try {
-        const saved = localStorage.getItem('stamim-theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (saved ? saved === 'dark' : prefersDark) {
-          document.documentElement.classList.add('dark');
-        }
-      } catch (err) {}
-    </script>
+    <title>stamim</title>
+    <meta
+      name="description"
+      content="Stamim makes small stuff for the web, side projects, and honest little tools."
+    />
 
     <style>
       @font-face {
-        font-family: 'Starborn';
-        src: url('./assets/fonts/Starborn-Regular.otf') format('opentype');
+        font-family: "Starborn";
+        src: url("./assets/fonts/Starborn-Regular.otf") format("opentype");
         font-weight: 400;
         font-style: normal;
       }
 
       :root {
-        --bg: #f5f1e8;
-        --bg-2: #ebf4ff;
-        --panel: rgba(255,255,255,0.78);
-        --panel-strong: #fffdf9;
-        --ink: #171b23;
-        --muted: #5e6673;
-        --line: rgba(23,27,35,0.12);
-        --blue: #7ec2ff;
-        --blue-deep: #3d7de8;
-        --yellow: #f4d76b;
-        --yellow-deep: #e3c14a;
-        --shadow: rgba(18, 30, 58, 0.12);
+        --bg: #f6f1e8;
+        --bg-2: #edf5ff;
+        --panel: rgba(255, 255, 255, 0.8);
+        --panel-strong: #fffdf8;
+        --ink: #171b22;
+        --muted: #5d6673;
+        --line: rgba(23, 27, 34, 0.12);
+        --blue: #7cc5ff;
+        --blue-deep: #3e7ae6;
+        --yellow: #f4d86d;
+        --yellow-deep: #e6c554;
+        --shadow: rgba(15, 24, 38, 0.15);
       }
 
       html.dark {
-        --bg: #121925;
-        --bg-2: #1b2435;
-        --panel: rgba(19,25,38,0.78);
-        --panel-strong: #17213a;
-        --ink: #edf2f8;
-        --muted: #b0bbca;
-        --line: rgba(237,242,248,0.09);
-        --blue: #9ed1ff;
-        --blue-deep: #6a9df8;
-        --yellow: #f7dc79;
-        --yellow-deep: #e8c557;
-        --shadow: rgba(0,0,0,0.28);
+        --bg: #101821;
+        --bg-2: #182635;
+        --panel: rgba(19, 25, 35, 0.78);
+        --panel-strong: #162235;
+        --ink: #edf3f8;
+        --muted: #a8b4c5;
+        --line: rgba(237, 243, 248, 0.09);
+        --blue: #9ed3ff;
+        --blue-deep: #6ca2ff;
+        --yellow: #f6dc7a;
+        --yellow-deep: #e7c966;
+        --shadow: rgba(0, 0, 0, 0.3);
       }
 
-      * { box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
 
       body {
         margin: 0;
         background:
-          radial-gradient(circle at top left, rgba(244,215,107,0.18), transparent 26%),
-          radial-gradient(circle at bottom right, rgba(126,194,255,0.12), transparent 28%),
+          radial-gradient(circle at top left, rgba(244, 216, 109, 0.18), transparent 26%),
+          radial-gradient(circle at bottom right, rgba(124, 197, 255, 0.12), transparent 28%),
           var(--bg);
         color: var(--ink);
-        line-height: 1.6;
-        font-family: 'Starborn', Georgia, serif;
+        font-family: "Starborn", Georgia, serif;
+        line-height: 1.55;
       }
 
-      a { color: inherit; text-decoration: none; }
-      button, input { font: inherit; }
-      img { max-width: 100%; }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      img {
+        max-width: 100%;
+      }
 
       .wrap {
-        width: min(1080px, calc(100% - 2rem));
+        width: min(1120px, calc(100% - 2rem));
         margin: 0 auto;
       }
 
-      h1, h2, h3, .brand-name {
-        font-family: 'Starborn', Georgia, serif;
+      h1,
+      h2,
+      h3,
+      .brand-name {
+        font-family: "Starborn", Georgia, serif;
         letter-spacing: -0.04em;
         font-weight: 400;
       }
@@ -87,20 +99,20 @@
         top: 0;
         z-index: 100;
         backdrop-filter: blur(10px);
-        background: rgba(245,241,232,0.8);
+        background: rgba(246, 241, 232, 0.78);
         border-bottom: 1px solid var(--line);
       }
 
       html.dark header {
-        background: rgba(18,25,37,0.76);
+        background: rgba(16, 24, 33, 0.76);
       }
 
       .header-inner {
+        min-height: 74px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 1rem;
-        min-height: 74px;
       }
 
       .brand {
@@ -110,19 +122,19 @@
       }
 
       .brand-badge {
-        width: 2.3rem;
-        height: 2.3rem;
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: 0.8rem;
         display: grid;
         place-items: center;
-        border-radius: 0.8rem;
         background: var(--blue-deep);
         color: var(--yellow);
+        box-shadow: 0 12px 24px rgba(62, 122, 230, 0.18);
         font-weight: 700;
-        box-shadow: 0 12px 24px rgba(61,125,232,0.18);
       }
 
       .brand-name {
-        font-size: clamp(1.6rem, 3vw, 2.2rem);
+        font-size: clamp(1.8rem, 2.8vw, 2.3rem);
       }
 
       .brand-name .dot {
@@ -132,32 +144,32 @@
       .header-actions {
         display: flex;
         align-items: center;
-        gap: 0.75rem;
+        gap: 0.8rem;
       }
 
       .status {
         display: inline-flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.55rem;
         padding: 0.5rem 0.8rem;
         border-radius: 999px;
         border: 1px solid var(--line);
         background: var(--panel);
         color: var(--muted);
-        font-size: 0.76rem;
+        font-size: 0.78rem;
       }
 
       .status::before {
         content: "";
-        width: 0.52rem;
-        height: 0.52rem;
+        width: 0.5rem;
+        height: 0.5rem;
+        background: #3ed18e;
         border-radius: 50%;
-        background: #42cf8d;
       }
 
       .theme-btn {
-        width: 2.5rem;
-        height: 2.5rem;
+        width: 2.55rem;
+        height: 2.55rem;
         border: 1px solid var(--line);
         border-radius: 0.8rem;
         background: var(--panel);
@@ -172,19 +184,19 @@
       }
 
       .hero {
-        padding: 4.8rem 0 2.6rem;
+        padding: 4.5rem 0 2rem;
       }
 
       .hero-grid {
         display: grid;
-        grid-template-columns: 1.38fr 0.8fr;
+        grid-template-columns: 1.32fr 0.8fr;
         gap: 2rem;
         align-items: center;
       }
 
       .eyebrow {
         margin: 0 0 0.9rem;
-        font-size: 0.72rem;
+        font-size: 0.7rem;
         letter-spacing: 0.18em;
         text-transform: uppercase;
         color: var(--muted);
@@ -192,21 +204,21 @@
 
       h1 {
         margin: 0;
-        font-size: clamp(3.1rem, 6.5vw, 5.8rem);
-        line-height: 0.94;
+        font-size: clamp(3.2rem, 6.5vw, 5.8rem);
+        line-height: 0.96;
       }
 
       .highlight {
         display: inline-block;
-        padding: 0.08em 0.16em 0.06em;
+        padding: 0.08em 0.15em 0.05em;
         background: var(--yellow);
-        box-shadow: 0 10px 24px rgba(244,215,107,0.22);
+        box-shadow: 0 12px 24px rgba(244, 216, 109, 0.22);
       }
 
       .lede {
         max-width: 42rem;
         margin-top: 1.2rem;
-        font-size: 1.08rem;
+        font-size: 1.1rem;
         color: var(--muted);
       }
 
@@ -223,10 +235,10 @@
         justify-content: center;
         gap: 0.5rem;
         min-height: 2.9rem;
-        padding: 0.8rem 1.2rem;
+        padding: 0.8rem 1.1rem;
         border-radius: 999px;
         border: 1px solid transparent;
-        font-size: 1.05rem;
+        font-size: 1rem;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
       }
 
@@ -236,8 +248,8 @@
 
       .btn-primary {
         background: var(--blue-deep);
-        color: #fff;
-        box-shadow: 0 16px 26px rgba(61,125,232,0.18);
+        color: white;
+        box-shadow: 0 18px 28px rgba(61, 122, 230, 0.18);
       }
 
       .btn-secondary {
@@ -266,25 +278,25 @@
         background: var(--panel);
         color: var(--ink);
         border-radius: 0.9rem;
-        padding: 0.92rem 1rem 0.92rem 2.8rem;
+        padding: 0.9rem 1rem 0.9rem 2.8rem;
         outline: none;
       }
 
       .search-wrap input:focus {
         border-color: var(--blue-deep);
-        box-shadow: 0 0 0 4px rgba(126,194,255,0.15);
+        box-shadow: 0 0 0 4px rgba(124, 197, 255, 0.14);
       }
 
       .note-card {
         background: linear-gradient(180deg, var(--panel-strong), var(--panel));
         border: 1px solid var(--line);
         border-radius: 1.4rem;
-        padding: 1.2rem;
+        padding: 1.15rem;
         box-shadow: 0 28px 52px -34px var(--shadow);
       }
 
       .note-tag {
-        font-size: 0.72rem;
+        font-size: 0.7rem;
         letter-spacing: 0.15em;
         text-transform: uppercase;
         color: var(--muted);
@@ -292,13 +304,13 @@
 
       .note-text {
         margin: 1rem 0 1.2rem;
-        font-size: clamp(1.7rem, 2vw, 2.2rem);
-        line-height: 1.12;
+        font-size: clamp(1.8rem, 2.2vw, 2.4rem);
+        line-height: 1.1;
       }
 
       .note-grid {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0,1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 0.8rem;
         padding-top: 0.9rem;
         border-top: 1px solid var(--line);
@@ -306,14 +318,14 @@
 
       .note-stat strong {
         display: block;
-        font-size: clamp(1.3rem,2vw,1.9rem);
+        font-size: clamp(1.4rem, 2vw, 1.9rem);
         line-height: 1;
       }
 
       .note-stat span {
         display: block;
         margin-top: 0.2rem;
-        font-size: 0.68rem;
+        font-size: 0.7rem;
         letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--muted);
@@ -321,24 +333,28 @@
 
       .ticker {
         overflow: hidden;
+        background: var(--yellow);
         border-top: 1px solid var(--line);
         border-bottom: 1px solid var(--line);
-        background: var(--yellow);
-        color: #171b23;
+        color: #171b22;
       }
 
       .ticker-track {
         display: inline-flex;
         align-items: center;
-        gap: 1.8rem;
+        gap: 1.5rem;
         min-width: max-content;
         padding: 0.8rem 0;
         animation: drift 22s linear infinite;
       }
 
       @keyframes drift {
-        from { transform: translateX(0); }
-        to { transform: translateX(-50%); }
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
       }
 
       .ticker-track span {
@@ -347,7 +363,7 @@
       }
 
       section {
-        padding: 3.5rem 0;
+        padding: 3.2rem 0;
       }
 
       .section-head {
@@ -355,20 +371,20 @@
         justify-content: space-between;
         align-items: end;
         gap: 1rem;
-        margin-bottom: 1.3rem;
+        margin-bottom: 1.2rem;
       }
 
       .kicker {
         margin: 0;
-        font-size: 0.72rem;
+        font-size: 0.7rem;
         letter-spacing: 0.16em;
         text-transform: uppercase;
         color: var(--muted);
       }
 
       h2 {
-        margin-top: 0.35rem;
-        font-size: clamp(2.2rem, 4vw, 3.1rem);
+        margin-top: 0.3rem;
+        font-size: clamp(2.3rem, 4vw, 3.3rem);
         line-height: 0.98;
       }
 
@@ -377,17 +393,25 @@
         font-size: 0.82rem;
       }
 
-      .card-grid {
+      .card-grid,
+      .feature-grid {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 1rem;
+      }
+
+      .card-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .card,
       .feature-box {
         background: var(--panel);
         border: 1px solid var(--line);
-        border-radius: 1.1rem;
+        border-radius: 1.15rem;
         padding: 1rem;
         box-shadow: 0 18px 30px -28px var(--shadow);
         transition: transform 0.2s ease, border-color 0.2s ease;
@@ -401,20 +425,25 @@
 
       .card .icon,
       .feature-box .icon {
-        width: 2.5rem;
-        height: 2.5rem;
+        width: 2.55rem;
+        height: 2.55rem;
         display: grid;
         place-items: center;
         border-radius: 0.8rem;
-        background: rgba(61,125,232,0.1);
+        background: rgba(62, 122, 230, 0.1);
         color: var(--blue-deep);
-        margin-bottom: 0.8rem;
+        margin-bottom: 0.75rem;
         animation: bob 3s ease-in-out infinite;
       }
 
       @keyframes bob {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-3px); }
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-3px);
+        }
       }
 
       [data-lucide] {
@@ -433,7 +462,7 @@
       .card h3,
       .feature-box strong {
         margin: 0 0 0.45rem;
-        font-size: 1.2rem;
+        font-size: 1.25rem;
       }
 
       .card p,
@@ -444,28 +473,19 @@
 
       .card a {
         display: inline-block;
-        margin-top: 0.8rem;
+        margin-top: 0.85rem;
         color: var(--blue-deep);
         font-weight: 600;
-      }
-
-      .hidden { display: none !important; }
-
-      .feature-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 1rem;
-      }
-
-      .feature-box strong {
-        display: block;
-        margin-bottom: 0.35rem;
       }
 
       .feature-site {
         display: inline-flex;
         align-items: center;
         gap: 0.45rem;
+      }
+
+      .hidden {
+        display: none !important;
       }
 
       footer {
@@ -507,6 +527,7 @@
       }
     </style>
   </head>
+
   <body>
     <header>
       <div class="wrap header-inner">
@@ -517,7 +538,14 @@
 
         <div class="header-actions">
           <span class="status">open to ideas</span>
-          <button type="button" class="theme-btn" aria-label="Toggle theme">☾</button>
+          <button type="button" class="theme-btn" aria-label="Toggle theme">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 0 12.21 21a9 9 0 0 1 9-8.21Z"></path>
+              <path d="M13.5 5.5V3"></path>
+              <path d="M13.5 21v-2.5"></path>
+              <path d="M13.5 13.5h-2.5"></path>
+            </svg>
+          </button>
         </div>
       </div>
     </header>
@@ -528,19 +556,24 @@
           <div>
             <p class="eyebrow">Kuala Lumpur, Malaysia</p>
             <h1>
-              I make <span class="highlight">small stuff</span> for the web - kinda.
+              I make <span class="highlight">small stuff</span>
+              for the web.
             </h1>
+
             <p class="lede">
-              I build little tools, side projects, and random stuff I wanted to exist. Nothing too fancy. Just useful stuff and honest work. I like stuff that feels simple and not too try-hard.
+              I build little tools, side projects, and random stuff I wanted to exist.
+              Nothing too fancy. Just useful stuff and honest work.
+              I like stuff that feels simple and not too try-hard.
             </p>
 
             <div class="cta-row">
               <a class="btn btn-primary" href="#work">
                 See my work
-                <i data-lucide="arrow-right"></i>
+                <svg data-lucide="arrow-right"></svg>
               </a>
+
               <a class="btn btn-secondary" href="mailto:stamimmeh@gmail.com">
-                <i data-lucide="mail"></i>
+                <svg data-lucide="mail"></svg>
                 Email me
               </a>
             </div>
@@ -550,7 +583,7 @@
                 <circle cx="11" cy="11" r="7"></circle>
                 <path d="M20 20L16.65 16.65"></path>
               </svg>
-              <input id="siteSearch" type="text" placeholder="search projects, links, ideas" aria-label="Search site" />
+              <input id="siteSearch" type="text" placeholder="search stuff, links, ideas" aria-label="Search site" />
             </div>
           </div>
 
@@ -607,31 +640,43 @@
           <div class="section-head">
             <div>
               <p class="kicker">what I do</p>
-              <h2>Stuff I keep buildng</h2>
+              <h2>Stuff I keep building</h2>
             </div>
             <div class="section-note">mostly useful, sometimes weird</div>
           </div>
 
           <div class="card-grid">
             <article class="card" data-search="tools utilities app automation workflow projects product">
-              <div class="icon"><i data-lucide="sparkles"></i></div>
+              <div class="icon">
+                <svg data-lucide="sparkles"></svg>
+              </div>
               <h3>Quick tools</h3>
               <p>Small stuff that saves a bit of time and makes work feel easier.</p>
-              <a href="#contact">Build one with me <i data-lucide="arrow-right"></i></a>
+              <a href="#contact">Build one with me
+                <svg data-lucide="arrow-right"></svg>
+              </a>
             </article>
 
             <article class="card" data-search="websites experiments design prototype landing pages ui stuff">
-              <div class="icon"><i data-lucide="layout-grid"></i></div>
+              <div class="icon">
+                <svg data-lucide="layout-grid"></svg>
+              </div>
               <h3>Web experiments</h3>
               <p>Little ideas that turn into pages, tests, and stuff I wanted to see working.</p>
-              <a href="#links">Look at my links <i data-lucide="arrow-right"></i></a>
+              <a href="#links">Look at my links
+                <svg data-lucide="arrow-right"></svg>
+              </a>
             </article>
 
             <article class="card" data-search="automation scripts workflow boring tasks process product">
-              <div class="icon"><i data-lucide="zap"></i></div>
+              <div class="icon">
+                <svg data-lucide="zap"></svg>
+              </div>
               <h3>Automation</h3>
               <p>Cutting the boring bits and making the repetitive stuff a little less annoying.</p>
-              <a href="mailto:stamimmeh@gmail.com">Talk about it <i data-lucide="arrow-right"></i></a>
+              <a href="mailto:stamimmeh@gmail.com">Talk about it
+                <svg data-lucide="arrow-right"></svg>
+              </a>
             </article>
           </div>
         </div>
@@ -649,28 +694,38 @@
 
           <div class="feature-grid">
             <article class="feature-box" data-search="music playlists spotify listening vibes inspiration">
-              <div class="icon"><i data-lucide="music"></i></div>
+              <div class="icon">
+                <svg data-lucide="music"></svg>
+              </div>
               <strong>Listening</strong>
               <span>Spotify, lo-fi, and the kind of pages that turn into a whole afternoon.</span>
             </article>
 
             <article class="feature-box" data-search="design inspiration ui refs layout minimal websites">
-              <div class="icon"><i data-lucide="pen-tool"></i></div>
+              <div class="icon">
+                <svg data-lucide="pen-tool"></svg>
+              </div>
               <strong>Design refs</strong>
               <span>Simple layouts, clean type, and pages that feel calm instead of loud.</span>
             </article>
 
             <article class="feature-box" data-search="classic talkomatic talkomatic.co site favorite internet">
-              <div class="icon"><i data-lucide="star"></i></div>
+              <div class="icon">
+                <svg data-lucide="star"></svg>
+              </div>
               <strong>Fav site</strong>
               <span class="feature-site">
-                <a href="https://classic.talkomatic.co" target="_blank" rel="noreferrer">classic.talkomatic.co</a>
-                <i data-lucide="external-link"></i>
+                <a href="https://classic.talkomatic.co" target="_blank" rel="noreferrer">
+                  classic.talkomatic.co
+                </a>
+                <svg data-lucide="external-link"></svg>
               </span>
             </article>
 
             <article class="feature-box" data-search="reading essays articles product software thinking culture notes">
-              <div class="icon"><i data-lucide="book-open"></i></div>
+              <div class="icon">
+                <svg data-lucide="book-open"></svg>
+              </div>
               <strong>Reading list</strong>
               <span>Good pieces on product, software, work, and the web from people who think clearly.</span>
             </article>
@@ -689,22 +744,28 @@
           </div>
 
           <div class="card-grid">
-            <article class="card" data-search="email hello contact message project ">
-              <div class="icon"><i data-lucide="mail"></i></div>
+            <article class="card" data-search="email hello contact message project">
+              <div class="icon">
+                <svg data-lucide="mail"></svg>
+              </div>
               <h3>Email</h3>
               <p>For ideas, jobs, collabs, or anything that feels worth building.</p>
               <a href="mailto:stamimmeh@gmail.com">stamimmeh@gmail.com</a>
             </article>
 
             <article class="card" data-search="github code repositories developer profile project portfolio">
-              <div class="icon"><i data-lucide="github"></i></div>
+              <div class="icon">
+                <svg data-lucide="github"></svg>
+              </div>
               <h3>GitHub</h3>
               <p>Code, experiments, and the small stuff I actually ship.</p>
               <a href="https://github.com/Stamimmeh" target="_blank" rel="noreferrer">github.com/Stamimmeh</a>
             </article>
 
             <article class="card" data-search="linkedin social profile work professional contact">
-              <div class="icon"><i data-lucide="linkedin"></i></div>
+              <div class="icon">
+                <svg data-lucide="linkedin"></svg>
+              </div>
               <h3>LinkedIn</h3>
               <p>For the more straightforward work side of things when that’s needed.</p>
               <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">linkedin.com</a>
@@ -726,36 +787,47 @@
       </div>
     </footer>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest"></script>
     <script>
       lucide.createIcons();
 
-      const themeButton = document.querySelector('.theme-btn');
       const root = document.documentElement;
+      const themeButton = document.querySelector(".theme-btn");
 
       function syncTheme() {
-        const isDark = root.classList.contains('dark');
-        themeButton.textContent = isDark ? '☀' : '☾';
+        const isDark = root.classList.contains("dark");
+        const themeIcon = themeButton.querySelector("svg");
+        themeIcon.innerHTML = isDark
+          ? '<path d="M12 3v2.5"></path><path d="M12 3v2.5"></path><path d="M12 3.5v-0.5"></path><path d="M12 15.5v-0.5"></path><path d="M12 7.5v2.5"></path><path d="M12 12.5v2.5"></path><path d="M12 17.5v2.5"></path><path d="M12 21v1"></path>' 
+          : '<path d="M21 12.79A9 9 0 1 0 12.21 21a9 9 0 0 1 9-8.21Z"></path><path d="M13.5 5.5V3"></path><path d="M13.5 21v-2.5"></path><path d="M13.5 13.5h-2.5"></path>';
+        themeButton.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
       }
 
-      themeButton.addEventListener('click', () => {
-        const nextMode = root.classList.toggle('dark') ? 'dark' : 'light';
-        localStorage.setItem('stamim-theme', nextMode);
+      themeButton.addEventListener("click", () => {
+        const nextMode = root.classList.toggle("dark") ? "dark" : "light";
+        localStorage.setItem("stamim-theme", nextMode);
         syncTheme();
       });
 
+      const savedTheme = localStorage.getItem("stamim-theme");
+      if (savedTheme === "dark") {
+        root.classList.add("dark");
+      } else if (savedTheme === "light") {
+        root.classList.remove("dark");
+      }
+
       syncTheme();
 
-      const searchInput = document.getElementById('siteSearch');
-      const searchTargets = [...document.querySelectorAll('[data-search]')];
+      const searchInput = document.getElementById("siteSearch");
+      const cards = document.querySelectorAll("[data-search]");
 
-      searchInput.addEventListener('input', (event) => {
+      searchInput.addEventListener("input", (event) => {
         const query = event.target.value.trim().toLowerCase();
 
-        searchTargets.forEach((item) => {
-          const haystack = (item.dataset.search || '').toLowerCase();
+        cards.forEach((card) => {
+          const haystack = (card.dataset.search || "").toLowerCase();
           const matches = !query || haystack.includes(query);
-          item.classList.toggle('hidden', !matches);
+          card.classList.toggle("hidden", !matches);
         });
       });
     </script>
