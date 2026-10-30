@@ -16,60 +16,52 @@
     </script>
     <style>
       :root {
-        --bg: #f5f0e7;
-        --bg-2: #efe4d1;
-        --panel: rgba(255,255,255,0.72);
+        --bg: #f5f1e8;
+        --bg-2: #ebf4ff;
+        --panel: rgba(255,255,255,0.78);
         --panel-strong: #fffdf9;
-        --ink: #17140f;
-        --muted: #5e564e;
-        --line: rgba(23,20,15,0.12);
-        --accent: #2b4ee8;
-        --accent-soft: rgba(43,78,232,0.12);
-        --yellow: #f2d77c;
-        --shadow: rgba(24,20,15,0.12);
+        --ink: #151820;
+        --muted: #5d6472;
+        --line: rgba(21,24,32,0.12);
+        --blue: #72b9ff;
+        --blue-deep: #3d7fe9;
+        --yellow: #f3d76a;
+        --yellow-deep: #e8c94d;
+        --shadow: rgba(18, 30, 58, 0.12);
       }
 
       html.dark {
-        --bg: #121615;
-        --bg-2: #1b201f;
-        --panel: rgba(22,28,27,0.8);
-        --panel-strong: #171d1c;
-        --ink: #f0eee9;
-        --muted: #b7b0a7;
-        --line: rgba(240,238,233,0.1);
-        --accent: #9bb2ff;
-        --accent-soft: rgba(155,178,255,0.12);
-        --yellow: #efd777;
+        --bg: #111827;
+        --bg-2: #1b2435;
+        --panel: rgba(17,24,39,0.78);
+        --panel-strong: #171f2d;
+        --ink: #edf1f7;
+        --muted: #b3bccd;
+        --line: rgba(237,241,247,0.1);
+        --blue: #93c7ff;
+        --blue-deep: #6c9ef7;
+        --yellow: #f5d86f;
+        --yellow-deep: #e9c94d;
         --shadow: rgba(0,0,0,0.25);
       }
 
-      * {
-        box-sizing: border-box;
-      }
+      * { box-sizing: border-box; }
 
-      html {
-        scroll-behavior: smooth;
-      }
+      html { scroll-behavior: smooth; }
 
       body {
         margin: 0;
         font-family: Arial, Helvetica, sans-serif;
         background:
-          radial-gradient(circle at top left, rgba(242, 215, 124, 0.18), transparent 26%),
-          radial-gradient(circle at bottom right, rgba(43, 78, 232, 0.08), transparent 24%),
+          radial-gradient(circle at top left, rgba(243, 215, 106, 0.18), transparent 26%),
+          radial-gradient(circle at bottom right, rgba(114, 185, 255, 0.14), transparent 26%),
           var(--bg);
         color: var(--ink);
         line-height: 1.6;
       }
 
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      button, input {
-        font: inherit;
-      }
+      a { color: inherit; text-decoration: none; }
+      button, input { font: inherit; }
 
       .wrap {
         width: min(1080px, calc(100% - 2rem));
@@ -88,12 +80,12 @@
         top: 0;
         z-index: 50;
         backdrop-filter: blur(10px);
-        background: rgba(245,240,231,0.74);
+        background: rgba(245,241,232,0.76);
         border-bottom: 1px solid var(--line);
       }
 
       html.dark header {
-        background: rgba(18,22,21,0.72);
+        background: rgba(17,24,39,0.72);
       }
 
       .header-inner {
@@ -115,19 +107,19 @@
         height: 2.2rem;
         display: grid;
         place-items: center;
-        border-radius: 0.8rem;
-        background: var(--ink);
+        border-radius: 0.75rem;
+        background: var(--blue-deep);
         color: var(--yellow);
         font-weight: 700;
       }
 
       .brand-name {
-        font-size: clamp(1.6rem, 3vw, 2.1rem);
+        font-size: clamp(1.6rem,3vw,2.1rem);
         font-family: Georgia, 'Times New Roman', serif;
       }
 
       .brand-name .dot {
-        color: var(--accent);
+        color: var(--blue);
       }
 
       .header-actions {
@@ -153,7 +145,7 @@
         width: 0.52rem;
         height: 0.52rem;
         border-radius: 50%;
-        background: #3ecf8e;
+        background: #46d09b;
       }
 
       .theme-btn {
@@ -194,7 +186,7 @@
         display: inline-block;
         padding: 0.08em 0.18em 0.08em;
         background: var(--yellow);
-        box-shadow: 0 10px 24px rgba(242, 215, 124, 0.2);
+        box-shadow: 0 10px 24px rgba(243,215,106,0.2);
       }
 
       .lede {
@@ -223,8 +215,8 @@
       }
 
       .btn-primary {
-        background: var(--ink);
-        color: var(--bg);
+        background: var(--blue-deep);
+        color: #fff;
       }
 
       .btn-secondary {
@@ -258,8 +250,8 @@
       }
 
       .search-wrap input:focus {
-        border-color: var(--accent);
-        box-shadow: 0 0 0 4px var(--accent-soft);
+        border-color: var(--blue);
+        box-shadow: 0 0 0 4px rgba(114,185,255,0.15);
       }
 
       .note-card {
@@ -311,7 +303,7 @@
         border-top: 1px solid var(--line);
         border-bottom: 1px solid var(--line);
         background: var(--yellow);
-        color: #17140f;
+        color: #171820;
       }
 
       .ticker-track {
@@ -383,7 +375,7 @@
       .card:hover,
       .feature-box:hover {
         transform: translateY(-2px);
-        border-color: var(--accent);
+        border-color: var(--blue-deep);
       }
 
       .card .icon {
@@ -392,8 +384,8 @@
         display: grid;
         place-items: center;
         border-radius: 0.8rem;
-        background: var(--accent-soft);
-        color: var(--accent);
+        background: rgba(61,127,233,0.1);
+        color: var(--blue-deep);
         font-size: 0.8rem;
         font-weight: 700;
         margin-bottom: 0.85rem;
@@ -414,7 +406,7 @@
       .card a {
         display: inline-block;
         margin-top: 0.8rem;
-        color: var(--accent);
+        color: var(--blue-deep);
         font-weight: 600;
       }
 
@@ -453,19 +445,11 @@
         color: var(--muted);
       }
 
-      .hidden {
-        display: none !important;
-      }
+      .hidden { display: none !important; }
 
       @media (max-width: 840px) {
-        .hero-grid, .card-grid, .feature-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .section-head {
-          flex-direction: column;
-          align-items: flex-start;
-        }
+        .hero-grid, .card-grid, .feature-grid { grid-template-columns: 1fr; }
+        .section-head { flex-direction: column; align-items: flex-start; }
       }
     </style>
   </head>
@@ -490,10 +474,10 @@
           <div>
             <p class="eyebrow">Kuala Lumpur, Malaysia</p>
             <h1>
-              I make <span class="highlight">small things</span> for the web.
+              I make <span class="highlight">small stuff</span> for the web.
             </h1>
             <p class="lede">
-              I build little tools, projects, and side things when they feel worth keeping. Nothing too fancy. Just things that are useful, honest, and fun to make.
+              I build little tools, side projects, and random stuff I wanted to exist. Not much fuss. Just useful things and honest work. I like stuff that feels simple and not too try-hard.
             </p>
 
             <div class="cta-row">
@@ -614,9 +598,9 @@
               <span>Simple layouts, clean type, and pages that feel calm instead of loud.</span>
             </article>
 
-            <article class="feature-box" data-search="code docs tutorials reference learning software build">
-              <strong>Build stuff</strong>
-              <span>Docs, notes, and little web resources that help me work through the hard bits.</span>
+            <article class="feature-box" data-search="classic talkomatic talkomatic.co internet website">
+              <strong>Fav site</strong>
+              <span><a href="https://classic.talkomatic.co" target="_blank" rel="noreferrer">classic.talkomatic.co</a></span>
             </article>
 
             <article class="feature-box" data-search="reading essays articles product software thinking culture notes">
